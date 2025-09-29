@@ -64,3 +64,4 @@ C:\Users\octavius\Desktop\Practica-Miriam-Arreglos\arreglos.Api\obj\Debug\net9.0
 C:\Users\octavius\Desktop\Practica-Miriam-Arreglos\arreglos.Api\obj\Debug\net9.0\arreglos.Api.pdb
 C:\Users\octavius\Desktop\Practica-Miriam-Arreglos\arreglos.Api\obj\Debug\net9.0\arreglos.Api.genruntimeconfig.cache
 C:\Users\octavius\Desktop\Practica-Miriam-Arreglos\arreglos.Api\obj\Debug\net9.0\ref\arreglos.Api.dll
+C:\code\Csharp-APIs\arreglos.Api\obj\Debug\net9.0\arreglos.Api.sourcelink.json

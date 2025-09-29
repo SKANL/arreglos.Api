@@ -6,6 +6,8 @@ namespace arreglos.Api.Services;
 public class ArrayService : IArrayService
 {
     // Ejercicio 1: Contador de ceros en cada fila de una matriz. (NO IMPLEMENTADO)
+
+
     // Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante. (Implementado)
     public bool EsCuadradoMagico(int[][] matriz, out int constante)
     {
@@ -62,7 +64,7 @@ public class ArrayService : IArrayService
         constante = sumaReferencia;
         return true;
     }
-    
+
     // Ejercicio 3: Realiza operaciones aritméticas (suma, resta, producto, división) entre dos matrices. (Implementado)
     public OperacionesMatricesResponse RealizarOperacionesMatrices(int[][] matrizA, int[][] matrizB)
     {
@@ -123,7 +125,7 @@ public class ArrayService : IArrayService
         // Esta validación aquí es una capa extra de seguridad si el servicio se llamara desde otro lugar.
         if (size <= 0)
             throw new ArgumentException("El tamaño debe ser mayor que 0", nameof(size));
- 
+
         // Inicializa la matriz escalonada (array de arrays).
         int[][] matriz = new int[size][];
         for (int i = 0; i < size; i++)
@@ -133,10 +135,85 @@ public class ArrayService : IArrayService
             // El resto de los elementos del array de enteros se inicializan a 0 por defecto.
             matriz[i][i] = 1;
         }
- 
+
         return matriz;
     }
     // Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (NO IMPLEMENTADO)
-    // Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (NO IMPLEMENTADO)
-    // Ejercicio 7: Realiza un análisis estadístico de calificaciones de alumnos. (NO IMPLEMENTADO)
+
+
+
+    // Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (IMPLEMENTADO)
+    public AnalizarVentasResponse AnalizarVentas(int[][] ventas)
+    {
+        if (ventas == null || ventas.Length == 0 || ventas[0].Length == 0)
+            throw new ArgumentException("La matriz de ventas no puede ser nula o vacía.");
+
+        int meses = ventas.Length;
+        int dias = ventas[0].Length;
+
+        var ventaMinima = new VentaInfo(ventas[0][0], 1, 1);
+        var ventaMaxima = new VentaInfo(ventas[0][0], 1, 1);
+        int ventaTotal = 0;
+        var ventaPorDia = new int[dias];
+
+        for (int i = 0; i < meses; i++)
+        {
+            for (int j = 0; j < dias; j++)
+            {
+                int ventaActual = ventas[i][j];
+
+                // Actualizar venta mínima
+                if (ventaActual < ventaMinima.Valor)
+                    ventaMinima = new VentaInfo(ventaActual, i + 1, j + 1);
+
+                // Actualizar venta máxima
+                if (ventaActual > ventaMaxima.Valor)
+                    ventaMaxima = new VentaInfo(ventaActual, i + 1, j + 1);
+
+                ventaTotal += ventaActual;
+                ventaPorDia[j] += ventaActual;
+            }
+        }
+
+        return new AnalizarVentasResponse(ventaMinima, ventaMaxima, ventaTotal, ventaPorDia);
+    }
+
+    // Ejercicio 7: Realiza un análisis estadístico de calificaciones de alumnos. (IMPLEMENTADO)
+    public AnalizarCalificacionesResponse AnalizarCalificaciones(double[][] calificaciones)
+    {
+        if (calificaciones == null || calificaciones.Length == 0 || calificaciones[0].Length == 0)
+            throw new ArgumentException("La matriz de calificaciones no puede ser nula o vacía.");
+
+        int alumnos = calificaciones.Length;
+
+        var promedios = calificaciones.Select(fila => fila.Average()).ToArray();
+        double promedioMasAlto = promedios.Max();
+        double promedioMasBajo = promedios.Min();
+
+        int parcialesReprobados = calificaciones.SelectMany(fila => fila).Count(calif => calif < 7.0);
+
+        var distribucion = new Dictionary<string, int>
+        {
+            { "0-4.9", 0 }, { "5.0-5.9", 0 }, { "6.0-6.9", 0 }, { "7.0-7.9", 0 },
+            { "8.0-8.9", 0 }, { "9.0-10", 0 }
+        };
+
+        foreach (var p in promedios)
+        {
+            if (p < 5.0) distribucion["0-4.9"]++;
+            else if (p < 6.0) distribucion["5.0-5.9"]++;
+            else if (p < 7.0) distribucion["6.0-6.9"]++;
+            else if (p < 8.0) distribucion["7.0-7.9"]++;
+            else if (p < 9.0) distribucion["8.0-8.9"]++;
+            else distribucion["9.0-10"]++;
+        }
+
+        return new AnalizarCalificacionesResponse(
+            promedios,
+            promedioMasAlto,
+            promedioMasBajo,
+            parcialesReprobados,
+            distribucion
+        );
+    }
 }

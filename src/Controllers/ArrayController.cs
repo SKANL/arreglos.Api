@@ -16,8 +16,10 @@ public class ArrayController : ControllerBase
         _arrayService = arrayService;
     }
 
-    // Endpoint para el Ejercicio 1: Contador de ceros en cada fila de una matriz.
-    // Endpoint para el Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante.
+    // Endpoint para el Ejercicio 1: Contador de ceros en cada fila de una matriz. (NO IMPLEMENTADO)
+
+
+    // Endpoint para el Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante. (IMPLEMENTADO)
     [HttpPost("magic-square")]
     public IActionResult VerificarCuadradoMagico([FromBody] EsCuadradoMagicoRequest request)
     {
@@ -30,8 +32,8 @@ public class ArrayController : ControllerBase
 
         return Ok(response);
     }
-    
-    // Endpoint para el Ejercicio 3: Realiza operaciones aritméticas (suma, resta, producto, división) entre dos matrices.
+
+    // Endpoint para el Ejercicio 3: Realiza operaciones aritméticas (suma, resta, producto, división) entre dos matrices. (IMPLEMENTADO)
     [HttpPost("matrix-operations")]
     public IActionResult RealizarOperacionesMatrices([FromBody] OperacionesMatricesRequest request)
     {
@@ -41,7 +43,7 @@ public class ArrayController : ControllerBase
         return Ok(response);
     }
 
-    // Endpoint para el Ejercicio 4: Genera una matriz identidad (diagonal de 1s, resto 0s) de un tamaño N.
+    // Endpoint para el Ejercicio 4: Genera una matriz identidad (diagonal de 1s, resto 0s) de un tamaño N. (IMPLEMENTADO)
     [HttpPost("identity")]
     public IActionResult GenerarMatrizIdentidad([FromBody] GenerarMatrizIdentidadRequest request)
     {
@@ -59,7 +61,21 @@ public class ArrayController : ControllerBase
         return Ok(response);
     }
 
-    // Endpoint para el Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios.
-    // Endpoint para el Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día.
-    // Endpoint para el Ejercicio 7: Realiza un análisis estadístico de calificaciones de alumnos.
+    // Endpoint para el Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (NO IMPLEMENTADO)
+
+    // Endpoint para el Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (IMPLEMENTADO)
+    [HttpPost("sales-analysis")]
+    public IActionResult AnalizarVentas([FromBody] AnalizarVentasRequest request)
+    {
+        var response = _arrayService.AnalizarVentas(request.Ventas);
+        return Ok(response);
+    }
+
+    // Endpoint para el Ejercicio 7: Realiza un análisis estadístico de calificaciones de alumnos. (IMPLEMENTADO)
+    [HttpPost("grades-analysis")]
+    public IActionResult AnalizarCalificaciones([FromBody] AnalizarCalificacionesRequest request)
+    {
+        var response = _arrayService.AnalizarCalificaciones(request.Calificaciones);
+        return Ok(response);
+    }
 }

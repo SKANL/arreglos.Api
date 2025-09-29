@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "f29oR4Ln3D8=",
+  "dgSpecHash": "Qwv/vhdCryo=",
   "success": true,
-  "projectFilePath": "C:\\Users\\octavius\\Desktop\\Practica-Miriam-Arreglos\\arreglos.Api\\arreglos.Api.csproj",
+  "projectFilePath": "C:\\code\\Csharp-APIs\\arreglos.Api\\arreglos.Api.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\octavius\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
-    "C:\\Users\\octavius\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+    "C:\\Users\\angua\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.8\\microsoft.aspnetcore.openapi.9.0.8.nupkg.sha512",
+    "C:\\Users\\angua\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
   ],
   "logs": []
 }
