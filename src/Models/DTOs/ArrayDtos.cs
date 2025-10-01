@@ -2,7 +2,9 @@ using arreglos.Api.Attributes;
 
 namespace arreglos.Api.Models.Dtos;
 
-// Ejercicio 1: Contador de ceros en cada fila de una matriz. (NO IMPLEMENTADO)
+// Ejercicio 1: Contador de ceros en cada fila de una matriz. (IMPLEMENTADO)
+public record ContarCerosRequest(int[][] Matriz);
+public record ContarCerosResponse(int[] CerosPorFila);
 
 
 // Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante. (YA IMPLEMENTADO)
@@ -17,8 +19,15 @@ public record OperacionesMatricesResponse(int[][] Suma, int[][] Resta, int[][] P
 public record GenerarMatrizIdentidadRequest([MustBePositive] int Size);
 public record GenerarMatrizIdentidadResponse(int[][] Matriz);
 
-// Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (NO IMPLEMENTADO)
-
+// Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (IMPLEMENTADO)
+public record CalcularEstadisticasMatrizRequest(int[][] Matriz);
+public record EstadisticasFilasColumnas(
+    int[] SumaPorFila,
+    double[] PromedioPorFila,
+    int[] SumaPorColumna,
+    double[] PromedioPorColumna
+);
+public record CalcularEstadisticasMatrizResponse(EstadisticasFilasColumnas Estadisticas);
 
 // Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (IMPLEMENTADO)
 public record AnalizarVentasRequest(int[][] Ventas);

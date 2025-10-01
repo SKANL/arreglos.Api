@@ -16,8 +16,15 @@ public class ArrayController : ControllerBase
         _arrayService = arrayService;
     }
 
-    // Endpoint para el Ejercicio 1: Contador de ceros en cada fila de una matriz. (NO IMPLEMENTADO)
-
+    // Endpoint para el Ejercicio 1: Contador de ceros en cada fila de una matriz. (IMPLEMENTADO)
+    [HttpPost("count-zeros")]
+    public IActionResult ContarCerosPorFila([FromBody] ContarCerosRequest request)
+    {
+        // Llama al servicio para contar los ceros en cada fila.
+        var resultado = _arrayService.ContarCerosPorFila(request.Matriz);
+        var response = new ContarCerosResponse(resultado);
+        return Ok(response);
+    }
 
     // Endpoint para el Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante. (IMPLEMENTADO)
     [HttpPost("magic-square")]
@@ -61,7 +68,15 @@ public class ArrayController : ControllerBase
         return Ok(response);
     }
 
-    // Endpoint para el Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (NO IMPLEMENTADO)
+    // Endpoint para el Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (IMPLEMENTADO)
+    [HttpPost("matrix-statistics")]
+    public IActionResult CalcularEstadisticasMatriz([FromBody] CalcularEstadisticasMatrizRequest request)
+    {
+        // Llama al servicio para calcular las estadísticas de filas y columnas.
+        var estadisticas = _arrayService.CalcularEstadisticasMatriz(request.Matriz);
+        var response = new CalcularEstadisticasMatrizResponse(estadisticas);
+        return Ok(response);
+    }
 
     // Endpoint para el Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (IMPLEMENTADO)
     [HttpPost("sales-analysis")]

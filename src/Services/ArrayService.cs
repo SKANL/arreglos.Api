@@ -5,8 +5,37 @@ namespace arreglos.Api.Services;
 
 public class ArrayService : IArrayService
 {
-    // Ejercicio 1: Contador de ceros en cada fila de una matriz. (NO IMPLEMENTADO)
+    // Ejercicio 1: Contador de ceros en cada fila de una matriz. (IMPLEMENTADO)
+    public int[] ContarCerosPorFila(int[][] matriz)
+    {
+        // 1. Validar que la matriz no sea nula y no esté vacía.
+        if (matriz == null || matriz.Length == 0)
+            throw new ArgumentException("La matriz no puede ser nula o vacía.");
 
+        // 2. Inicializar el array de resultados con el tamaño igual al número de filas.
+        int[] cerosPorFila = new int[matriz.Length];
+
+        // 3. Recorrer cada fila de la matriz.
+        for (int i = 0; i < matriz.Length; i++)
+        {
+            // Validar que la fila no sea nula.
+            if (matriz[i] == null)
+                throw new ArgumentException($"La fila {i} de la matriz no puede ser nula.");
+
+            // 4. Contar los ceros en la fila actual.
+            int contadorCeros = 0;
+            for (int j = 0; j < matriz[i].Length; j++)
+            {
+                if (matriz[i][j] == 0)
+                    contadorCeros++;
+            }
+
+            // 5. Almacenar el resultado en el array de resultados.
+            cerosPorFila[i] = contadorCeros;
+        }
+
+        return cerosPorFila;
+    }
 
     // Ejercicio 2: Determina si una matriz es un cuadrado mágico y calcula su constante. (Implementado)
     public bool EsCuadradoMagico(int[][] matriz, out int constante)
@@ -138,9 +167,66 @@ public class ArrayService : IArrayService
 
         return matriz;
     }
-    // Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (NO IMPLEMENTADO)
+    // Ejercicio 5: Calcula la suma y el promedio de cada fila y columna en una matriz de números aleatorios. (IMPLEMENTADO)
+    public EstadisticasFilasColumnas CalcularEstadisticasMatriz(int[][] matriz)
+    {
+        // 1. Validar que la matriz no sea nula y no esté vacía.
+        if (matriz == null || matriz.Length == 0)
+            throw new ArgumentException("La matriz no puede ser nula o vacía.");
 
+        int filas = matriz.Length;
+        
+        // Validar que todas las filas tengan al menos un elemento y la misma longitud.
+        int columnas = matriz[0]?.Length ?? 0;
+        if (columnas == 0)
+            throw new ArgumentException("La matriz debe tener al menos una columna.");
 
+        // 2. Inicializar los arrays de resultados.
+        int[] sumaPorFila = new int[filas];
+        double[] promedioPorFila = new double[filas];
+        int[] sumaPorColumna = new int[columnas];
+        double[] promedioPorColumna = new double[columnas];
+
+        // 3. Calcular suma y promedio por fila.
+        for (int i = 0; i < filas; i++)
+        {
+            // Validar que la fila no sea nula y tenga la misma cantidad de columnas.
+            if (matriz[i] == null)
+                throw new ArgumentException($"La fila {i} no puede ser nula.");
+            
+            if (matriz[i].Length != columnas)
+                throw new ArgumentException("Todas las filas deben tener la misma cantidad de columnas.");
+
+            int sumaFila = 0;
+            for (int j = 0; j < columnas; j++)
+            {
+                sumaFila += matriz[i][j];
+            }
+            
+            sumaPorFila[i] = sumaFila;
+            promedioPorFila[i] = (double)sumaFila / columnas;
+        }
+
+        // 4. Calcular suma y promedio por columna.
+        for (int j = 0; j < columnas; j++)
+        {
+            int sumaColumna = 0;
+            for (int i = 0; i < filas; i++)
+            {
+                sumaColumna += matriz[i][j];
+            }
+            
+            sumaPorColumna[j] = sumaColumna;
+            promedioPorColumna[j] = (double)sumaColumna / filas;
+        }
+
+        return new EstadisticasFilasColumnas(
+            sumaPorFila,
+            promedioPorFila,
+            sumaPorColumna,
+            promedioPorColumna
+        );
+    }
 
     // Ejercicio 6: Analiza una matriz de ventas para encontrar la venta mínima, máxima, total y por día. (IMPLEMENTADO)
     public AnalizarVentasResponse AnalizarVentas(int[][] ventas)
