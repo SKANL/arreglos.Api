@@ -302,4 +302,50 @@ public class ArrayService : IArrayService
             distribucion
         );
     }
+
+    // Ejercicio 8: Revertir un arreglo usando recursión.
+    public int[] ReverseArrayRecursively(int[] array)
+    {
+        if (array == null) throw new ArgumentNullException(nameof(array));
+
+        // Helper recursivo que intercambia elementos en lugar (usa dos índices).
+        void Reverse(int[] arr, int left, int right)
+        {
+            if (left >= right) return;
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            Reverse(arr, left + 1, right - 1);
+        }
+
+        var copy = new int[array.Length];
+        Array.Copy(array, copy, array.Length);
+        Reverse(copy, 0, copy.Length - 1);
+        return copy;
+    }
+
+    // Ejercicio 9: Contar ocurrencias de un valor en un arreglo usando recursión.
+    public int CountOccurrencesRecursively(int[] array, int value)
+    {
+        if (array == null) throw new ArgumentNullException(nameof(array));
+
+        int CountFrom(int[] arr, int index)
+        {
+            if (index >= arr.Length) return 0;
+            int add = arr[index] == value ? 1 : 0;
+            return add + CountFrom(arr, index + 1);
+        }
+
+        return CountFrom(array, 0);
+    }
+
+    // Ejercicio 10: Aplanar una matriz jagged y calcular estadísticas usando una clase OOP y recursión.
+    public FlattenStatsResponse FlattenMatrixAndComputeStats(int[][] matrix)
+    {
+        if (matrix == null) throw new ArgumentNullException(nameof(matrix));
+
+        var analyzer = new ArrayAnalyzer();
+        analyzer.Flatten(matrix);
+        return new FlattenStatsResponse(analyzer.Flattened, analyzer.Sum, analyzer.Min, analyzer.Max, analyzer.Average);
+    }
 }

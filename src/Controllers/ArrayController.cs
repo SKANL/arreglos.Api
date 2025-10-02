@@ -93,4 +93,29 @@ public class ArrayController : ControllerBase
         var response = _arrayService.AnalizarCalificaciones(request.Calificaciones);
         return Ok(response);
     }
+
+    // Ejercicio 8: Revertir un arreglo usando recursión
+    [HttpPost("reverse-array")]
+    public IActionResult ReverseArray([FromBody] ReverseArrayRequest request)
+    {
+        var reversed = _arrayService.ReverseArrayRecursively(request.ArrayToReverse);
+        return Ok(new ReverseArrayResponse(reversed));
+    }
+
+    // Ejercicio 9: Contar ocurrencias usando recursión
+    [HttpPost("count-occurrences")]
+    public IActionResult CountOccurrences([FromBody] CountOccurrencesRequest request)
+    {
+        var count = _arrayService.CountOccurrencesRecursively(request.Array, request.Value);
+        return Ok(new CountOccurrencesResponse(count));
+    }
+
+    // Ejercicio 10: Aplanar matriz y calcular estadísticas usando OOP y recursión
+    [HttpPost("flatten-stats")]
+    public IActionResult FlattenStats([FromBody] CalcularEstadisticasMatrizRequest request)
+    {
+        // Reutilizamos el DTO de request de matriz int[][] existente para simplicidad.
+        var stats = _arrayService.FlattenMatrixAndComputeStats(request.Matriz);
+        return Ok(stats);
+    }
 }

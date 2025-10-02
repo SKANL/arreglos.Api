@@ -43,3 +43,14 @@ public record AnalizarCalificacionesResponse(
     int ParcialesReprobados,
     Dictionary<string, int> DistribucionCalificaciones
 );
+
+// Ejercicio 8: Revertir un arreglo usando recursión
+public record ReverseArrayRequest(int[] ArrayToReverse);
+public record ReverseArrayResponse(int[] ReversedArray);
+
+// Ejercicio 9: Contar ocurrencias usando recursión
+public record CountOccurrencesRequest(int[] Array, int Value);
+public record CountOccurrencesResponse(int Count);
+
+// Ejercicio 10: Aplanar matriz y calcular estadísticas
+public record FlattenStatsResponse(int[] Flattened, long Sum, int Min, int Max, double Average);
